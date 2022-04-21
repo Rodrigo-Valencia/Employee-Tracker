@@ -2,6 +2,7 @@
   "dependencies": {
     "console.table": "^0.10.0",
     "inquirer": "^8.2.2",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "util.promisify": "^1.1.1"
   }
 }

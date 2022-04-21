@@ -1,28 +1,32 @@
-const inquirer = require('inquirer');
 const mysql = require('mysql2');
-const util = require('util');
-const fs = require('fs');
-const cTable = require('console.table');
+const inquirer = require('inquirer');
+// const util = require('util');
+// const fs = require('fs');
+// const cTable = require('console.table');
 
 
-const db = mysql.createConnection(
+const connection = mysql.createConnection(
     {
         host: 'localhost',
         port: 3002,
         user: 'root',
         password: '',
-        database: 'employee'
+        database: 'employee_db'
     },
 );
 
-db.connect((err) => {
+process.on('uncaughtException', function (err) {
+    console.log(err);
+});
+
+connection.connect((err) => {
     if (err) throw err;
     console.log('Connection Successful!')
 
     runProgram();
 });
 
-// db.query = util.promisfy(db.query);
+// connection.query = util.promisfy(connection.query);
 
 function runProgram() {
     inquirer.prompt({
@@ -60,7 +64,7 @@ function runProgram() {
 function viewDepartments() {
     connection.query('SELECT * FROM department', (err, data) => {
         if (err) throw err;
-        console.log('Showing add departments:');
+        console.log('Showing all departments:');
         console.table(data);
         runProgram();
     });
