@@ -1,10 +1,8 @@
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
-// const util = require('util');
-// const fs = require('fs');
 const cTable = require('console.table');
 
-
+// Database Connection
 const connection = mysql.createConnection(
     {
         host: 'localhost',
@@ -14,10 +12,6 @@ const connection = mysql.createConnection(
     },
 );
 
-// process.on('uncaughtException', function (err) {
-//     console.log(err);
-// });
-
 connection.connect((err) => {
     if (err) throw err;
     console.log('Connection Successful!')
@@ -25,8 +19,7 @@ connection.connect((err) => {
     runProgram();
 });
 
-// connection.query = util.promisfy(connection.query);
-
+// Main prompt startup
 function runProgram() {
     inquirer.prompt({
         name: 'action',
@@ -60,6 +53,7 @@ function runProgram() {
     });
 }
 
+// View all Departments function
 function viewDepartments() {
     connection.query('SELECT * FROM department', (err, data) => {
         if (err) throw err;
@@ -69,6 +63,7 @@ function viewDepartments() {
     });
 }
 
+// View all roles function
 function viewRoles() {
     connection.query('SELECT * FROM role', (err, data) => {
         if (err) throw err;
@@ -78,6 +73,7 @@ function viewRoles() {
     });
 }
 
+// View all employee function
 function viewEmployees() {
     connection.query('SELECT * FROM employee', (err, data) => {
         if (err) throw err;
@@ -87,6 +83,7 @@ function viewEmployees() {
     });
 }
 
+// Add department 
 function addDepartment() {
     inquirer.prompt([
         {
@@ -116,6 +113,7 @@ function addDepartment() {
     });
 }
 
+// add role title, salary and select which department it falls under.
 function addRole() {
     const sql = 'SELECT * FROM department';
     connection.query(sql, (err, results) => {
@@ -179,6 +177,7 @@ function addRole() {
     });
 }
 
+// add employee first and last name and selects role
 function addEmployee() {
     const sql = 'SELECT * FROM employee, role';
     connection.query(sql, (err, results) => {
@@ -245,5 +244,3 @@ function addEmployee() {
         });
     });
 }
-
-// module.exports = connection;

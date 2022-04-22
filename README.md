@@ -10,8 +10,5 @@ Use Node.js, Inquirer, and MySQL to build a command-line application to manage a
 * Created schema and seed files for the development of you application. 
 * Wrote join statements to establish relationships between data in three separate tables using primary and foreign keys.
 
-### Link 
-[Link to the deployed website]()
-
 ### Reference 
 ![Screenshot of index.html]()
