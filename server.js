@@ -101,15 +101,15 @@ function addDepartment() {
                 }
             }
         },
-    ]).then(answer => {
+    ]).then(answers => {
         connection.query(
             'INSERT INTO department SET ?',
             {
-                name: answer.department
+                name: answers.department
             },
             (err) => {
                 if (err) throw err;
-                console.log(`New department ${answer.department} has been added!`);
+                console.log(`New department ${answers.department} has been added!`);
                 runProgram();
             }
         );
@@ -235,12 +235,13 @@ function addEmployee() {
                 first_name: answer.firstName,
                 last_name: answer.lastName,
                 role_id: chosenRole.id,
-            }),
+            },
             (err) => {
                 if (err) throw err;
                 console.log(`New employee ${answer.firstName} ${answer.lastName} has been added!`);
                 runProgram();
             }
+          )
         });
     });
 }
