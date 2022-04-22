@@ -2,22 +2,21 @@ const mysql = require('mysql2');
 const inquirer = require('inquirer');
 // const util = require('util');
 // const fs = require('fs');
-// const cTable = require('console.table');
+const cTable = require('console.table');
 
 
 const connection = mysql.createConnection(
     {
         host: 'localhost',
-        port: 3002,
         user: 'root',
         password: '',
         database: 'employee_db'
     },
 );
 
-process.on('uncaughtException', function (err) {
-    console.log(err);
-});
+// process.on('uncaughtException', function (err) {
+//     console.log(err);
+// });
 
 connection.connect((err) => {
     if (err) throw err;
@@ -33,7 +32,7 @@ function runProgram() {
         name: 'action',
         type: 'list',
         message: 'What would you like to do?',
-        choices: ['View all employees', 'Add Employee', 'Add Department', 'Add Role', 'Exit']
+        choices: ['View all departments', 'View all roles', 'View all employees', 'Add Department', 'Add Role', 'Add Employee', 'Exit']
     }).then(answers => {
         switch (answers.action) {
             case 'View all departments':
@@ -216,7 +215,7 @@ function addEmployee() {
                 choices: () => {
                     let choiceArray = [];
                     for (let i = 0; i < results.length; i++) {
-                        choiceArray.push(result[i].title);
+                        choiceArray.push(results[i].title);
                     }
                     let cleanChoiceArray = [...new Set(choiceArray)];
                     return cleanChoiceArray;
@@ -245,3 +244,5 @@ function addEmployee() {
         });
     });
 }
+
+// module.exports = connection;
